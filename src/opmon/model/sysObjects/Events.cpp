@@ -18,26 +18,7 @@ File under GNU GPL v3.0 license
 namespace OpMon {
     namespace Model {
 
-        using namespace Events;
-
-        Event::Event(std::vector<sf::Texture> &otherTextures, EventTrigger eventTrigger, sf::Vector2f const &position,
-                     int sides, bool passable)
-          : otherTextures(otherTextures)
-          , eventTrigger(eventTrigger)
-          , position(sf::Vector2f((position.x) * 32, (position.y) * 32))
-          , mapPos(position, true)
-          , passable(passable)
-          , sides(sides)
-          , sprite(std::make_unique<sf::Sprite>())
-          , currentTexture(otherTextures.begin()) {
-        }
-
-        void Event::updateTexture() {
-            this->sprite->setPosition(position);
-            this->sprite->setTexture(*currentTexture);
-        }
-
-        namespace Events {
+       namespace Events {
             std::vector<sf::Texture> alpha = std::vector<sf::Texture>(1);
             bool justTP = false;
 

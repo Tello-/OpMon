@@ -29,12 +29,7 @@ namespace OpMon {
                 std::vector<sf::Texture> NORMAL, SHOP; // this doesn't belong here
             }
 
-            TPEvent::TPEvent(const Position& _mapPosition, const EventTrigger& _eventTrigger, sf::Vector2i const &_tpPos, std::string const &_map,
-                             int _sides, bool _passable)
-              : Event{_mapPosition, _eventTrigger, _sides, _passable }
-              , m_tpCoord{_tpPos}
-              , m_map{_map} {
-            }
+            
 
             DoorEvent::DoorEvent(std::vector<sf::Texture> &doorTextures, std::string doorType, sf::Vector2f const &position, sf::Vector2i const &tpPos,
                                  std::string const &map, EventTrigger eventTrigger, Side ppDir, int sides, bool passable)
@@ -113,19 +108,9 @@ namespace OpMon {
 
             //Actions and updates
 
-            void TPEvent::action(Model::Player &player, View::Overworld &overworld) {
-                if(!justTP) {
-                    overworld.tp(map, tpCoord);
-                    //Sets the player's direction after the teleportation. If this->ppDir == -1, the old player position is kept
-                    if(this->ppDir != -1) {
-                        player.getPosition().setDir(this->ppDir);
-                    }
-                    justTP = true;
-                }
-            }
+           
 
-            void TPEvent::update(Model::Player &player, View::Overworld &overworld) {
-            }
+            
 
             void DoorEvent::action(Model::Player &player, View::Overworld &overworld) {
                 //Starts the animation. The animation itself will be done in update()

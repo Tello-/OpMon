@@ -85,8 +85,7 @@ namespace OpMon {
 
 
 
-				namespace Events {
-
+				namespace Events { // TPEvent
 					/* TPEvent is a specific type of Event in which the player or any other entity is teleported from one position on the map
 					to another position on the same map or a different map altogether. */
             class TPEvent : public Event {
@@ -115,8 +114,21 @@ namespace OpMon {
 
             void TPEvent::update(Player &player, View::Overworld &overworld) {
             }
-
         } // namespace Events
+
+				namespace Events { // SoundEvent
+            class SoundEvent : public Event {
+              public:
+                SoundEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, const sf::Sound& _sound, const std::string &_map,
+                           int _sides = SIDE_ALL, bool _passable = true);
+                virtual void update(Player &_player, View::Overworld &_overworld);
+                virtual void action(Player &_player, View::Overworld &_overworld);
+              protected:
+                sf::Sound m_sound;
+						};
+
+
+				}
 
 
 

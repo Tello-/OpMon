@@ -87,9 +87,8 @@ namespace OpMon {
 
 				namespace Events { // TPEvent
 					/* TPEvent is a specific type of Event in which the player or any other entity is teleported from one position on the map
-					to another position on the same map or a different map altogether. */
+					to another position on the same map or a different map entirely. */
             class TPEvent : public Event {
-
             public:
               TPEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, sf::Vector2i const &_tpPos, const std::string &_map,
                       int _sides = SIDE_ALL, bool _passable = true);
@@ -100,23 +99,10 @@ namespace OpMon {
                 sf::Vector2i m_tpCoord; // map coord to teleport to
                 std::string m_map;      // map teleporting to              
             };
-
-
-						/* I put the implementations here for now because I was having major trouble with the build system letting me make new files.*/
-						TPEvent::TPEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, sf::Vector2i const &_tpPos, std::string const &_map,
-                             int _sides, bool _passable)
-              : Event{_mapPosition, _eventTrigger, _sides, _passable}
-              , m_tpCoord{_tpPos}
-              , m_map{_map} {}
-
-            void TPEvent::action(Player &player, View::Overworld &overworld) {
-            }
-
-            void TPEvent::update(Player &player, View::Overworld &overworld) {
-            }
-        } // namespace Events
+        } // namespace Events -- TPEvent
 
 				namespace Events { // SoundEvent
+          /* SoundEvent is a specific version of an event that when triggered, plays a sound */
             class SoundEvent : public Event {
               public:
                 SoundEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, const sf::Sound& _sound, const std::string &_map,
@@ -124,11 +110,23 @@ namespace OpMon {
                 virtual void update(Player &_player, View::Overworld &_overworld);
                 virtual void action(Player &_player, View::Overworld &_overworld);
               protected:
-                sf::Sound m_sound; // TODO: I think this needs to be a pointer.
+                sf::Sound m_sound; // TODO: I think this needs to be a pointer. Actually I dont think so. The sf::SoundBuffer just needs to exist
+                std::string m_map;
 						};
+				} // namespace events --SoundEvent
 
-
-				}
+				namespace Events { // DoorEvent
+               /* DoorEvent is a macro event composed of micro events.
+									TPEvent + SoundEvent + TODO: AnimationEvent = DoorEvent
+									DoorEvent can be safely derived to use different types of door and sound animations*/
+            class DoorEvent{
+              public:
+                DoorEvent(const TPEvent& _tpEvent, const SoundEvent& _soundEvent);
+                virtual void update(Player &_player, View::Overworld &_overworld);
+                virtual void action(Player &_player, View::Overworld &_overworld);
+            };
+        } // namespace events --SoundEvent
+				
 
 
 

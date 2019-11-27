@@ -39,6 +39,8 @@ namespace OpMon {
                   , m_map{_map} {}
 
                 void TPEvent::action(Player &player, View::Overworld &overworld) {
+                    std::cout << "TPEvent at: " << m_map << " "
+                              << m_mapPos.getPosition().x << ", " << m_mapPos.getPosition().y << std::endl;
                 }
 
                 void TPEvent::update(Player &player, View::Overworld &overworld) {
@@ -49,10 +51,14 @@ namespace OpMon {
                 SoundEvent::SoundEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, const sf::Sound &_sound, const std::string &_map,
                            int _sides = SIDE_ALL, bool _passable = true)
                   : Event{_mapPosition, _eventTrigger, _sides, _passable}
-                  , m_sound{_sound} {}
+                  , m_sound{_sound}
+                  , m_map{_map} {}
                 void SoundEvent::update(Player &_player, View::Overworld &_overworld) {
                 }
                 void SoundEvent::action(Player &_player, View::Overworld &_overworld) {
+                    std::cout << "SoundEvent at: " << m_map << " "
+                              << m_mapPos.getPosition().x << ", " << m_mapPos.getPosition().y << std::endl;
+									//m_sound.play();
                 }
             } // namespace Events -- Sound Event
 

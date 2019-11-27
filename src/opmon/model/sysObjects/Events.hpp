@@ -124,7 +124,7 @@ namespace OpMon {
                 virtual void update(Player &_player, View::Overworld &_overworld);
                 virtual void action(Player &_player, View::Overworld &_overworld);
               protected:
-                sf::Sound m_sound;
+                sf::Sound m_sound; // TODO: I think this needs to be a pointer.
 						};
 
 

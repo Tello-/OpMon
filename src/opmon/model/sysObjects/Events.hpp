@@ -94,23 +94,7 @@ namespace OpMon {
             extern bool justTP; // this seems fishy
 
 
-						/* Describes the Teleport Event.
-							This is a specific type of event that allows for the teleportation of an entity from point to point
-							within a map or across different maps. */
-            class TPEvent : public Event {
-              private:
-                int frames = -1;
-
-              protected:
-                sf::Vector2i tpCoord; // map coord to teleport to
-                std::string map; // map teleporting to
-                Side ppDir;
-
-              public:
-                TPEvent(std::vector<sf::Texture> &otherTextures, EventTrigger eventTrigger, sf::Vector2f const &position, sf::Vector2i const &tpPos, std::string const &map, Side ppDir = Side::NO_MOVE, int sides = SIDE_ALL, bool passable = true);
-                virtual void update(Model::Player &player, View::Overworld &overworld);
-                virtual void action(Model::Player &player, View::Overworld &overworld);
-            };
+						
 
             class DoorEvent : public Event {
               protected:

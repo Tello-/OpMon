@@ -19,23 +19,21 @@ namespace OpMon {
     namespace Model {
 
        namespace Events {
-            std::vector<sf::Texture> alpha = std::vector<sf::Texture>(1);
-            bool justTP = false;
 
-            sf::Sound doorSound;
-            sf::Sound shopdoorSound;
+            bool justTP = false; // again why is this here
+
+            sf::Sound doorSound; // doesn't belong here
+            sf::Sound shopdoorSound; // doesn't belong here
 
             namespace DoorType {
-                std::vector<sf::Texture> NORMAL, SHOP;
+                std::vector<sf::Texture> NORMAL, SHOP; // this doesn't belong here
             }
 
-            TPEvent::TPEvent(std::vector<sf::Texture> &otherTextures, EventTrigger eventTrigger,
-                             sf::Vector2f const &position, sf::Vector2i const &tpPos, std::string const &map, Side ppDir,
-                             int sides, bool passable)
-              : Event(otherTextures, eventTrigger, position, sides, passable)
-              , tpCoord(tpPos)
-              , map(map)
-              , ppDir(ppDir) {
+            TPEvent::TPEvent(const Position& _mapPosition, const EventTrigger& _eventTrigger, sf::Vector2i const &_tpPos, std::string const &_map,
+                             int _sides, bool _passable)
+              : Event{_mapPosition, _eventTrigger, _sides, _passable }
+              , m_tpCoord{_tpPos}
+              , m_map{_map} {
             }
 
             DoorEvent::DoorEvent(std::vector<sf::Texture> &doorTextures, std::string doorType, sf::Vector2f const &position, sf::Vector2i const &tpPos,

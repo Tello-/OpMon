@@ -124,7 +124,7 @@ namespace OpMon {
 								// TODO: CTOR needs an animation object but I'm not 100% sure how animations work..
                 AnimationEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, const std::string &_map,
                            int _sides = SIDE_ALL, bool _passable = true);
-                //TODO: Needs copy constructor!
+                AnimationEvent(const AnimationEvent &_other);
                 virtual void update(Player &_player, View::Overworld &_overworld);
                 virtual void action(Player &_player, View::Overworld &_overworld);
 
@@ -140,13 +140,14 @@ namespace OpMon {
 									DoorEvent can be safely derived to use different types of door and sound animations*/
             class DoorEvent{
               public:
-                DoorEvent(const TPEvent& _tpEvent, const SoundEvent& _soundEvent);
+                DoorEvent(const TPEvent& _tpEvent, const SoundEvent& _soundEvent, const AnimationEvent& _animationEvent);
                 virtual void update(Player &_player, View::Overworld &_overworld);
                 virtual void action(Player &_player, View::Overworld &_overworld);
 
               private:
                 TPEvent m_tpEvent;
                 SoundEvent m_soundEvent;
+                AnimationEvent m_animationEvent;
             };
         } // namespace events --SoundEvent
 				

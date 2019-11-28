@@ -72,18 +72,34 @@ namespace OpMon {
                 }
             } // namespace Events -- Sound Event
 
+						namespace Events { // Animation Event
+                AnimationEvent::AnimationEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, const std::string &_map,
+                                               int _sides = SIDE_ALL, bool _passable = true)
+                  : Event{_mapPosition, _eventTrigger, _sides, _passable}
+                  , m_map{_map} {}
+                AnimationEvent::AnimationEvent(const AnimationEvent &_other)
+                  : Event(_other.m_mapPos, _other.m_eventTrigger, m_sides, m_passable)
+                  , m_map{_other.m_map} {}
+                void AnimationEvent::update(Player &_player, View::Overworld &_overworld) { /* Move to next frame..? */}
+                void AnimationEvent::action(Player &_player, View::Overworld &_overworld) { /* Begin Animation sequence..? */}
+                } // namespace Events -- Animation Event
+
 
 						namespace Events { // DoorEvent
 
-                DoorEvent::DoorEvent(const TPEvent &_tpEvent, const SoundEvent &_soundEvent)
-                  : m_tpEvent{_tpEvent}, m_soundEvent{_soundEvent}
+                DoorEvent::DoorEvent(const TPEvent &_tpEvent, const SoundEvent &_soundEvent, const AnimationEvent& _animationEvent)
+                  : m_tpEvent{_tpEvent}
+                  , m_soundEvent{_soundEvent}
+                  , m_animationEvent{_animationEvent}
             {}
 										void DoorEvent::update(Player &_player, View::Overworld &_overworld) {}
                     void DoorEvent::action(Player &_player, View::Overworld &_overworld) {
-                        /*std::cout << "DoorEvent at: " << m_map << " "
-                                  << m_mapPos.getPosition().x << ", " << m_mapPos.getPosition().y << std::endl;*/
+                        std::cout << "DoorEvent triggered" << _player.getPosition().getPosition().x << ", " << _player.getPosition().getPosition().y << std::endl;
+                        m_tpEvent.action(_player, _overworld);
+                        m_soundEvent.action(_player, _overworld);
+                        m_animationEvent.action(_player, _overworld);
                     }
-            } // namespace events --SoundEvent
+            } // namespace events --DoorEvent macro event
 											 					 
 
             //DoorEvent::DoorEvent(std::vector<sf::Texture> &doorTextures, std::string doorType, sf::Vector2f const &position, sf::Vector2i const &tpPos,

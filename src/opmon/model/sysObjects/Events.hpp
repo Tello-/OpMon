@@ -53,57 +53,74 @@ namespace OpMon {
         */
         class Event {
           protected:
-            Event(const Position &_mapPos, const Events::EventTrigger &_eventTrigger, int _sides = SIDE_ALL, bool _passable = false)
-              : m_mapPos{_mapPos}
-              , m_eventTrigger{_eventTrigger}
-              , m_sides{_sides}
-              , m_passable{_passable} {}
+            std::vector<sf::Texture> &otherTextures;
 
-						Position m_mapPos;
-            Events::EventTrigger m_eventTrigger;
-            bool m_passable;
-            int m_sides;
-            
+            std::unique_ptr<sf::Sprite> sprite;
+
+            std::vector<sf::Texture>::iterator currentTexture;
+            Events::EventTrigger eventTrigger;
+            sf::Vector2f position; //Sprite's position
+            bool passable = false;
+            int sides = SIDE_ALL;
+            Position mapPos;
 
           public:
-            /* Allow destruction of inherited classes*/
+            Event(std::vector<sf::Texture> &otherTextures, Events::EventTrigger eventTrigger, sf::Vector2f const &position, int sides, bool passable);
             virtual ~Event() = default;
             /**This method is called at each frame*/
             virtual void update(Model::Player &player, View::Overworld &overworld) = 0;
             /**This method is called when the player interacts with the event*/
             virtual void action(Model::Player &player, View::Overworld &overworld) = 0;
 
-            inline int getSide() const { return m_sides; }
-            
-            inline Events::EventTrigger getEventTrigger() const { return m_eventTrigger; }
-            inline const Position& getPositionMap() const { return m_mapPos; }
+            void updateTexture();
 
-            inline bool isPassable() const { return m_passable; }
+            int getSide() const {
+                return sides;
+            }
+            const sf::Texture &getTexture() {
+                return *currentTexture;
+            }
+            Events::EventTrigger getEventTrigger() const {
+                return eventTrigger;
+            }
+
+            sf::Vector2f getPosition() const {
+                return position;
+            }
+
+            Position getPositionMap() const {
+                return mapPos;
+            }
+
+            bool isPassable() const {
+                return passable;
+            }
+            const sf::Sprite *getSprite() const {
+                return sprite.get();
+            }
         };
-  /*
+
+        void initEnumsEvents();
+        /**
 	   Contains stuff in relation with the events, mostly different types of events.
 	*/
         namespace Events {
             /**
 	     Doors sounds (TODO : Move them)
 	    */
-            extern sf::Sound doorSound; // these should be stored elsewhere!
-            extern sf::Sound shopdoorSound; // these should be stored elsewhere!
+            extern sf::Sound doorSound;
+            extern sf::Sound shopdoorSound;
 
             //TODO : Move it
-            extern bool justTP; // this seems fishy
+            extern bool justTP;
 
-
-						/* Describes the Teleport Event.
-							This is a specific type of event that allows for the teleportation of an entity from point to point
-							within a map or across different maps. */
-            class TPEvent : public Event {
+            class TPEvent : public virtual Event {
               private:
                 int frames = -1;
 
               protected:
-                sf::Vector2i tpCoord; // map coord to teleport to
-                std::string map; // map teleporting to
+                sf::Vector2i tpCoord;
+                std::string map;
                 Side ppDir;
 
               public:
@@ -112,7 +129,7 @@ namespace OpMon {
                 virtual void action(Model::Player &player, View::Overworld &overworld);
             };
 
-            class DoorEvent : public Event {
+            class DoorEvent : public TPEvent {
               protected:
                 std::string doorType;
                 int animStarted = -1;

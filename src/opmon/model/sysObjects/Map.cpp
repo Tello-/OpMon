@@ -93,14 +93,14 @@ namespace OpMon {
                     }
 
                     if(type == "TalkingEvent") {
-                        currentMap->addEvent(new Events::TalkingEvent(data.getEventsTexture(eitor->at("textures")),
+                        /*currentMap->addEvent(new Events::TalkingEvent(data.getEventsTexture(eitor->at("textures")),
                                                                       sf::Vector2f(eitor->at("position")[0],
                                                                                    eitor->at("position")[1]),
                                                                       dialog,
                                                                       eitor->value("side", SIDE_ALL),
                                                                       eitor->value("trigger", Events::EventTrigger::PRESS),
-                                                                      eitor->value("passable", false)));
-                    } else if(type == "DoorEvent") {
+                                                                      eitor->value("passable", false)));*/
+                    } else if(type == "DoorEvent") {/*
                         currentMap->addEvent(new Events::DoorEvent(data.getDoorsTexture(eitor->at("textures")),
                                                                    eitor->at("doorType"),
                                                                    sf::Vector2f(eitor->at("position")[0],
@@ -111,7 +111,7 @@ namespace OpMon {
                                                                    eitor->value("trigger", Events::EventTrigger::GO_IN),
                                                                    eitor->at("tp").value("side", Side::NO_MOVE),
                                                                    eitor->value("sides", SIDE_ALL),
-                                                                   eitor->value("passable", true)));
+                                                                   eitor->value("passable", true)));*/
                     } else if(type == "TPEvent") {
                         currentMap->addEvent(new Events::TPEvent(eitor->at("trigger"),
                                                                  sf::Vector2f(eitor->at("position")[0],
@@ -122,8 +122,8 @@ namespace OpMon {
                                                                  eitor->at("tp").value("side", Side::NO_MOVE),
                                                                  eitor->value("side", SIDE_ALL),
                                                                  eitor->value("passable", true)));
-                    } else if(type == "TalkingCharaEvent") {
-                        currentMap->addEvent(new Events::TalkingCharaEvent(data.getCharaTexture(eitor->at("textures")),
+                    } else if(type == "TalkingCharaEvent") { // TODO: Need to implement TalkingCharaEvent
+                        /*currentMap->addEvent(new Events::TalkingCharaEvent(data.getCharaTexture(eitor->at("textures")),
                                                                            sf::Vector2f(eitor->at("position")[0],
                                                                                         eitor->at("position")[1]),
                                                                            dialog,
@@ -132,9 +132,9 @@ namespace OpMon {
                                                                            eitor->value("moveStyle", Events::MoveStyle::NO_MOVE),
                                                                            charaPath,
                                                                            eitor->value("passable", false),
-                                                                           eitor->value("interactionSide", SIDE_ALL)));
-                    } else if(type == "TrainerEvent") {
-                        std::vector<std::string> defeatedKey = eitor->at("dialogAfter");
+                                                                           eitor->value("interactionSide", SIDE_ALL)));*/
+                    } else if(type == "TrainerEvent") { // TODO: Need to implement TrainerEvent
+                        /*std::vector<std::string> defeatedKey = eitor->at("dialogAfter");
                         Utils::OpString defeatedDialog;
                         std::string key = defeatedKey[0];
                         std::vector<sf::String *> toAdd;
@@ -153,7 +153,7 @@ namespace OpMon {
                                                                       eitor->value("moveStyle", Events::MoveStyle::NO_MOVE),
                                                                       charaPath,
                                                                       eitor->value("passable", false),
-                                                                      eitor->value("interactionSide", SIDE_ALL)));
+                                                                      eitor->value("interactionSide", SIDE_ALL)));*/
                     }
                 }
                 return currentMap;

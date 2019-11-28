@@ -31,17 +31,23 @@ namespace OpMon {
         }
 
 						namespace Events { // TPEvent implementation
-                        
-                TPEvent::TPEvent(const EventTrigger &_eventTrigger, const sf::Vector2f &_mapPosition, sf::Vector2i const &_tpPos, std::string const &_map,
-                                 int _sides, bool _passable)
-                  : Event{Position{_mapPosition, true}, _eventTrigger, _sides, _passable}
-                  , m_tpCoord{_tpPos}
-                  , m_map{_map} {}
 
-                void TPEvent::action(Player &player, View::Overworld &overworld) {
-                    std::cout << "TPEvent at: " << m_map << " "
-                              << m_mapPos.getPosition().x << ", " << m_mapPos.getPosition().y << std::endl;
-                }
+								TPEvent::TPEvent(const EventTrigger &_eventTrigger, const sf::Vector2f &_mapPosition, sf::Vector2i const &_tpPos, std::string const &_map,
+                                 Side _ppDir, int _sides, bool _passable)
+									: Event{Position{_mapPosition, true}, _eventTrigger, _sides, _passable}
+									, m_tpCoord{_tpPos}
+									, m_map{_map} {}
+
+								TPEvent::TPEvent(const TPEvent &_other)
+									: Event(_other.m_mapPos, _other.m_eventTrigger, m_sides, m_passable)
+									, m_tpCoord{ _other.m_tpCoord}
+									, m_map{_other.m_map} {}
+
+
+								void TPEvent::action(Player &player, View::Overworld &overworld) {
+										std::cout << "TPEvent at: " << m_map << " "
+															<< m_mapPos.getPosition().x << ", " << m_mapPos.getPosition().y << std::endl;
+								}
 
                 void TPEvent::update(Player &player, View::Overworld &overworld) {
                 }
@@ -49,7 +55,7 @@ namespace OpMon {
 
 						namespace Events { // SoundEvent implementation
                 SoundEvent::SoundEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, const sf::Sound &_sound, const std::string &_map,
-                           int _sides = SIDE_ALL, bool _passable = true)
+                           int _sides, bool _passable)
                   : Event{_mapPosition, _eventTrigger, _sides, _passable}
                   , m_sound{_sound}
                   , m_map{_map} {}

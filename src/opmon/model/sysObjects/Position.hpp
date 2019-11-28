@@ -73,7 +73,7 @@ namespace OpMon {
 
             void setPosition(int x, int y);
 
-            void tp(sf::Vector2i position);
+            void tp(const sf::Vector2i& position);
 
             bool move(Side dir, Map *map);
 

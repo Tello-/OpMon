@@ -92,6 +92,7 @@ namespace OpMon {
             public:
                 TPEvent(const EventTrigger &_eventTrigger, const sf::Vector2f &_mapPosition, sf::Vector2i const &_tpPos, const std::string &_map,
                       int _sides = SIDE_ALL, bool _passable = true);
+								//TODO: Needs copy constructor!
               virtual void update(Player &player, View::Overworld &overworld);
               virtual void action(Player &player, View::Overworld &overworld);
 
@@ -107,6 +108,7 @@ namespace OpMon {
               public:
                 SoundEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, const sf::Sound& _sound, const std::string &_map,
                            int _sides = SIDE_ALL, bool _passable = true);
+                //TODO: Needs copy constructor!
                 virtual void update(Player &_player, View::Overworld &_overworld);
                 virtual void action(Player &_player, View::Overworld &_overworld);
               protected:

@@ -101,7 +101,7 @@ namespace OpMon {
                                                                       eitor->value("trigger", Events::EventTrigger::PRESS),
                                                                       eitor->value("passable", false)));*/
                     } else  if(type == "DoorEvent"){ // Josh version
-                        currentMap->addEvent(new Events::DoorEvent(Events::TPEvent{eitor->at("trigger"),
+                        currentMap->addEvent(new Events::DoorEvent(Events::TPEvent{eitor->at("trigger"), // TODO: Just realized that since a Door event is a macro event and not a polymorphic EVENT that it can't be added to the normal container of events.
                                                                  sf::Vector2f(eitor->at("position")[0],
                                                                               eitor->at("position")[1]),
                                                                  sf::Vector2i(eitor->at("tp").at("position")[0],
@@ -137,13 +137,10 @@ namespace OpMon {
                                                                  eitor->value("passable", true)));
                     } else if(type == "SoundEvent") {
                         currentMap->addEvent(new Events::SoundEvent(eitor->at("trigger"),
-                                                                 sf::Vector2f(eitor->at("position")[0],
+                                                                    sf::Vector2f(eitor->at("position")[0],
                                                                                  eitor->at("position")[1]),
-                                                                    sf::Sound(resourcemanager.getsound(eitor->at("sound"))), /* TODO: make getSound()*/
-                                                                 eitor->at("tp").at("map"),
-                                                                 eitor->at("tp").value("side", Side::NO_MOVE),
-                                                                 eitor->value("side", SIDE_ALL),
-                                                                 eitor->value("passable", true)));
+                                                                    eitor->at("sound"),
+                                                                    eitor->at("map")));
 
                     } else if(type == "TalkingCharaEvent") { // TODO: Need to implement TalkingCharaEvent
                         /*currentMap->addEvent(new Events::TalkingCharaEvent(data.getCharaTexture(eitor->at("textures")),

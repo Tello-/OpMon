@@ -106,15 +106,15 @@ namespace OpMon {
           /* SoundEvent is a specific version of an event that when triggered, plays a sound */
             class SoundEvent : public Event {
               public:
-                SoundEvent(const EventTrigger &_eventTrigger, const Position &_mapPosition, const sf::Sound &_sound, const std::string &_map,
-                           Side _ppDir = Side::NO_MOVE, int _sides = SIDE_ALL, bool _passable = true);
+                SoundEvent(const EventTrigger &_eventTrigger, const Position &_mapPosition, const std::string &_soundKey, const std::string &_map,
+                           Side _ppDir = Side::NO_MOVE);
                 SoundEvent(const SoundEvent &_other);
                 virtual void update(Player &_player, View::Overworld &_overworld);
                 virtual void action(Player &_player, View::Overworld &_overworld);
               protected:
                 sf::Sound m_sound; // TODO: I think this needs to be a pointer. Actually I dont think so. The sf::SoundBuffer just needs to exist
+                std::string m_soundKey;
                 std::string m_map;
-                Sides m_ppDir;
 						};
 				} // namespace events --SoundEvent
 

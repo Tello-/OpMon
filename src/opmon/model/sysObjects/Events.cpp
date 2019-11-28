@@ -54,17 +54,15 @@ namespace OpMon {
             } // namespace Events -- TPEvent
 
 						namespace Events { // SoundEvent implementation
-                SoundEvent::SoundEvent(const EventTrigger &_eventTrigger, const Position &_mapPosition, const sf::Sound &_sound, const std::string &_map,
-                                       Side _ppDir, int _sides, bool _passable)
-                  : Event{_mapPosition, _eventTrigger, _sides, _passable}
-                  , m_sound{_sound}
-                  , m_map{_map}
-                  , m_ppDir{_ppDir} {}
+                SoundEvent::SoundEvent(const EventTrigger &_eventTrigger, const Position &_mapPosition, const std::string& _soundKey, const std::string &_map,
+                                       Side _ppDir)
+                  : Event{_mapPosition, _eventTrigger}
+                  , m_soundKey{_soundKey}
+                  , m_map{_map} {}
                 SoundEvent::SoundEvent(const SoundEvent &_other)
                   : Event(_other.m_mapPos, _other.m_eventTrigger, m_sides, m_passable)
                   , m_sound{_other.m_sound}
-                  , m_map{_other.m_map}
-                  , m_ppDir{_other.m_ppDir} {}
+                  , m_map{_other.m_map} {}
                 void SoundEvent::update(Player &_player, View::Overworld &_overworld) {
                 }
                 void SoundEvent::action(Player &_player, View::Overworld &_overworld) {

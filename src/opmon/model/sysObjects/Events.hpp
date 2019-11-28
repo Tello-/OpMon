@@ -90,7 +90,7 @@ namespace OpMon {
 					to another position on the same map or a different map entirely. */
             class TPEvent : public Event {
             public:
-              TPEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, sf::Vector2i const &_tpPos, const std::string &_map,
+                TPEvent(const EventTrigger &_eventTrigger, const sf::Vector2f &_mapPosition, sf::Vector2i const &_tpPos, const std::string &_map,
                       int _sides = SIDE_ALL, bool _passable = true);
               virtual void update(Player &player, View::Overworld &overworld);
               virtual void action(Player &player, View::Overworld &overworld);
@@ -124,6 +124,10 @@ namespace OpMon {
                 DoorEvent(const TPEvent& _tpEvent, const SoundEvent& _soundEvent);
                 virtual void update(Player &_player, View::Overworld &_overworld);
                 virtual void action(Player &_player, View::Overworld &_overworld);
+
+              private:
+                TPEvent m_tpEvent;
+                SoundEvent m_soundEvent;
             };
         } // namespace events --SoundEvent
 				

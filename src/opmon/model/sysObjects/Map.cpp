@@ -113,8 +113,7 @@ namespace OpMon {
                                                                    eitor->value("sides", SIDE_ALL),
                                                                    eitor->value("passable", true)));
                     } else if(type == "TPEvent") {
-                        currentMap->addEvent(new Events::TPEvent(data.getEventsTexture(eitor->at("textures")),
-                                                                 eitor->at("trigger"),
+                        currentMap->addEvent(new Events::TPEvent(eitor->at("trigger"),
                                                                  sf::Vector2f(eitor->at("position")[0],
                                                                               eitor->at("position")[1]),
                                                                  sf::Vector2i(eitor->at("tp").at("position")[0],

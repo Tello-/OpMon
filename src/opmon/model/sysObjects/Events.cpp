@@ -32,9 +32,9 @@ namespace OpMon {
 
 						namespace Events { // TPEvent implementation
                         
-                TPEvent::TPEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, sf::Vector2i const &_tpPos, std::string const &_map,
+                TPEvent::TPEvent(const EventTrigger &_eventTrigger, const sf::Vector2f &_mapPosition, sf::Vector2i const &_tpPos, std::string const &_map,
                                  int _sides, bool _passable)
-                  : Event{_mapPosition, _eventTrigger, _sides, _passable}
+                  : Event{Position{_mapPosition, true}, _eventTrigger, _sides, _passable}
                   , m_tpCoord{_tpPos}
                   , m_map{_map} {}
 
@@ -61,6 +61,16 @@ namespace OpMon {
 									//m_sound.play();
                 }
             } // namespace Events -- Sound Event
+
+
+						namespace Events { // DoorEvent
+
+                DoorEvent::DoorEvent(const TPEvent &_tpEvent, const SoundEvent &_soundEvent)
+                  : m_tpEvent{_tpEvent}, m_soundEvent{_soundEvent}
+            {}
+										void DoorEvent::update(Player &_player, View::Overworld &_overworld) {}
+                    void DoorEvent::action(Player &_player, View::Overworld &_overworld) {}
+            } // namespace events --SoundEvent
 
 
 

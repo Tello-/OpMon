@@ -55,10 +55,14 @@ namespace OpMon {
 
 						namespace Events { // SoundEvent implementation
                 SoundEvent::SoundEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, const sf::Sound &_sound, const std::string &_map,
-                           int _sides, bool _passable)
+                                       int _sides, bool _passable)
                   : Event{_mapPosition, _eventTrigger, _sides, _passable}
                   , m_sound{_sound}
                   , m_map{_map} {}
+                SoundEvent::SoundEvent(const SoundEvent &_other)
+                  : Event(_other.m_mapPos, _other.m_eventTrigger, m_sides, m_passable)
+                  , m_sound{_other.m_sound}
+                  , m_map{_other.m_map} {}
                 void SoundEvent::update(Player &_player, View::Overworld &_overworld) {
                 }
                 void SoundEvent::action(Player &_player, View::Overworld &_overworld) {
@@ -75,10 +79,12 @@ namespace OpMon {
                   : m_tpEvent{_tpEvent}, m_soundEvent{_soundEvent}
             {}
 										void DoorEvent::update(Player &_player, View::Overworld &_overworld) {}
-                    void DoorEvent::action(Player &_player, View::Overworld &_overworld) {}
+                    void DoorEvent::action(Player &_player, View::Overworld &_overworld) {
+                        /*std::cout << "DoorEvent at: " << m_map << " "
+                                  << m_mapPos.getPosition().x << ", " << m_mapPos.getPosition().y << std::endl;*/
+                    }
             } // namespace events --SoundEvent
-
-
+											 					 
 
             //DoorEvent::DoorEvent(std::vector<sf::Texture> &doorTextures, std::string doorType, sf::Vector2f const &position, sf::Vector2i const &tpPos,
             //                     std::string const &map, EventTrigger eventTrigger, Side ppDir, int sides, bool passable)

@@ -108,7 +108,7 @@ namespace OpMon {
               public:
                 SoundEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, const sf::Sound& _sound, const std::string &_map,
                            int _sides = SIDE_ALL, bool _passable = true);
-                //TODO: Needs copy constructor!
+                SoundEvent(const SoundEvent &_other);
                 virtual void update(Player &_player, View::Overworld &_overworld);
                 virtual void action(Player &_player, View::Overworld &_overworld);
               protected:
@@ -116,6 +116,23 @@ namespace OpMon {
                 std::string m_map;
 						};
 				} // namespace events --SoundEvent
+
+				namespace Events { // AnimationEvent
+                           /* AnimationEvent is a specific version of an event that when triggered, plays an animation */
+            class AnimationEvent : public Event {
+              public:
+								// TODO: CTOR needs an animation object but I'm not 100% sure how animations work..
+                AnimationEvent(const Position &_mapPosition, const EventTrigger &_eventTrigger, const std::string &_map,
+                           int _sides = SIDE_ALL, bool _passable = true);
+                //TODO: Needs copy constructor!
+                virtual void update(Player &_player, View::Overworld &_overworld);
+                virtual void action(Player &_player, View::Overworld &_overworld);
+
+              protected:
+                // TODO: this needs an animation object but I'm still unsure how animation works..
+                std::string m_map;
+            };
+        } // namespace events --AnimationEvent
 
 				namespace Events { // DoorEvent
                /* DoorEvent is a macro event composed of micro events.

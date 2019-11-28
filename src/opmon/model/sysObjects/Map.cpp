@@ -100,7 +100,20 @@ namespace OpMon {
                                                                       eitor->value("side", SIDE_ALL),
                                                                       eitor->value("trigger", Events::EventTrigger::PRESS),
                                                                       eitor->value("passable", false)));*/
-                    } else if(type == "DoorEvent") {/*
+                    } else  if(type == "DoorEvent"){ // Josh version
+                        currentMap->addEvent(new Events::DoorEvent(Events::TPEvent{eitor->at("trigger"),
+                                                                 sf::Vector2f(eitor->at("position")[0],
+                                                                              eitor->at("position")[1]),
+                                                                 sf::Vector2i(eitor->at("tp").at("position")[0],
+                                                                              eitor->at("tp").at("position")[1]),
+                                                                 eitor->at("tp").at("map"),
+                                                                 eitor->at("tp").value("side", Side::NO_MOVE),
+                                                                 eitor->value("side", SIDE_ALL),
+                                                                 eitor->value("passable", true)}, Events::SoundEvent{}, Events::AnimationEvent{});
+
+
+
+										}/*else if(type == "DoorEvent") {
                         currentMap->addEvent(new Events::DoorEvent(data.getDoorsTexture(eitor->at("textures")),
                                                                    eitor->at("doorType"),
                                                                    sf::Vector2f(eitor->at("position")[0],
@@ -111,8 +124,8 @@ namespace OpMon {
                                                                    eitor->value("trigger", Events::EventTrigger::GO_IN),
                                                                    eitor->at("tp").value("side", Side::NO_MOVE),
                                                                    eitor->value("sides", SIDE_ALL),
-                                                                   eitor->value("passable", true)));*/
-                    } else if(type == "TPEvent") {
+                                                                   eitor->value("passable", true)));
+                    }*/ else if(type == "TPEvent") {
                         currentMap->addEvent(new Events::TPEvent(eitor->at("trigger"),
                                                                  sf::Vector2f(eitor->at("position")[0],
                                                                               eitor->at("position")[1]),
@@ -122,6 +135,16 @@ namespace OpMon {
                                                                  eitor->at("tp").value("side", Side::NO_MOVE),
                                                                  eitor->value("side", SIDE_ALL),
                                                                  eitor->value("passable", true)));
+                    } else if(type == "SoundEvent") {
+                        currentMap->addEvent(new Events::SoundEvent(eitor->at("trigger"),
+                                                                 sf::Vector2f(eitor->at("position")[0],
+                                                                                 eitor->at("position")[1]),
+                                                                    sf::Sound(resourcemanager.getsound(eitor->at("sound"))), /* TODO: make getSound()*/
+                                                                 eitor->at("tp").at("map"),
+                                                                 eitor->at("tp").value("side", Side::NO_MOVE),
+                                                                 eitor->value("side", SIDE_ALL),
+                                                                 eitor->value("passable", true)));
+
                     } else if(type == "TalkingCharaEvent") { // TODO: Need to implement TalkingCharaEvent
                         /*currentMap->addEvent(new Events::TalkingCharaEvent(data.getCharaTexture(eitor->at("textures")),
                                                                            sf::Vector2f(eitor->at("position")[0],

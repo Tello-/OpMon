@@ -19,7 +19,7 @@ namespace OpMon {
           , movement(false)
           , event(event) {}
 
-        Position::Position(sf::Vector2i position, bool event, Side dir)
+        Position::Position(const sf::Vector2i& position, bool event, Side dir)
           : posX(position.x)
           , posY(position.y)
           , dir(dir)
@@ -27,7 +27,7 @@ namespace OpMon {
           , movement(false)
           , event(event) {}
 
-        Position::Position(sf::Vector2f position, bool event, Side dir)
+        Position::Position(const sf::Vector2f& position, bool event, Side dir)
           : posX(position.x)
           , posY(position.y)
           , dir(dir)
@@ -35,7 +35,7 @@ namespace OpMon {
           , movement(false)
           , event(event) {}
 
-        void Position::tp(sf::Vector2i position) {
+        void Position::tp(const sf::Vector2i& position) {
             movement = false;
             anim = false;
 
